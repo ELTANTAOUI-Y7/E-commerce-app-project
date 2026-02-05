@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop - E-Commerce Store{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="row align-items-center">
+        <div class="col-lg-6">
+            <h1>Welcome to Our Store</h1>
+            <p class="lead">Discover amazing products at great prices</p>
+            <a href="{% url 'product_list' %}" class="btn btn-light btn-lg">Shop Now</a>
+        </div>
+        <div class="col-lg-6 text-center">
+            <i class="fas fa-shopping-bag" style="font-size: 5rem; opacity: 0.3;"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Categories Section -->
+<h2 class="page-title">Shop by Category</h2>
+<div class="row category-grid mb-5">
+    {% for category in categories %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <a href="{% url 'category' slug=category.slug %}" class="category-item">
+            <i class="fas fa-tag"></i>
+            <h5>{{ category.name }}</h5>
+            <small class="text-muted">{{ category.products.count }} product{{ category.products.count|pluralize }}</small>
+        </a>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted">No categories available.</p>
+    {% endfor %}
+</div>
+
+<!-- Featured Products Section -->
+<h2 class="page-title">Featured Products</h2>
+<div class="row">
+    {% for product in featured_products %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card product-card h-100">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                    <i class="fas fa-image text-muted" style="font-size: 3rem;"></i>
+                </div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+                <div class="mt-auto">
+                    <p class="product-price">${{ product.price }}</p>
+                    <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary">View Details</a>
+                    <button class="btn btn-success btn-add-to-cart btn-sm" data-product-name="{{ product.name }}">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted col-12">No products available yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

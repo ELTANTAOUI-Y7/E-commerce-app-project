@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Profile - E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="page-title">
+    <h1>My Profile</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Profile Information</h5>
+                <table class="table">
+                    <tr>
+                        <th>Username:</th>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>First Name:</th>
+                        <td>{{ user.first_name|default:"Not set" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Name:</th>
+                        <td>{{ user.last_name|default:"Not set" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Member Since:</th>
+                        <td>{{ user.date_joined|date:"F d, Y" }}</td>
+                    </tr>
+                </table>
+                
+                <div class="placeholder-content mt-4">
+                    <h5>Profile Placeholder</h5>
+                    <p>This is a placeholder profile page. More profile features and options will be available soon.</p>
+                </div>
+                
+                <div class="btn-group mt-3" role="group">
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+                    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Account Options</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="#">Edit Profile</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Change Password</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Order History</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Saved Addresses</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Wishlist</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
